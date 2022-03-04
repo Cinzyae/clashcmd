@@ -3,7 +3,7 @@ chcp 936>nul
 setlocal enabledelayedexpansion
 
 :init
-set version=V1.1.4
+set version=V1.1.5
 set gen_ini_path=App\subconverter\generate.ini
 set pref_ini_path=pref.ini
 set PATH="%~dp0";"%~dp0App";%PATH%
@@ -13,8 +13,8 @@ if "!locale!" == "" set locale=zh-cn
 call Locale\!locale!.bat :localeinit
 call Locale\!locale!.bat :initoptions
 call misc.bat :substitute "loc_title" "title" "version" "version"
-mode con cols=80 lines=40
-color f1
+@REM mode con cols=80 lines=40
+@REM color f1
 mkdir Profile\selection>nul 2>&1
 title !title!
 
@@ -604,7 +604,7 @@ goto :eof
 
 :advanced
 cls
-call misc.bat :makemenu "- !loc_advanced!" "adv_options" "EDGSX" "!loc_advanced_select!"
+call misc.bat :makemenu "- !loc_advanced!" "adv_options" "EDGSUX" "!loc_advanced_select!"
 echo.
 if "!selection!" == "E" (
   call :enable-sysproxy
@@ -622,6 +622,10 @@ if "!selection!" == "G" (
 )
 if "!selection!" == "S" (
   call startup.bat
+  goto advanced
+)
+if "!selection!" == "U" (
+  start EnableLoopback.exe
   goto advanced
 )
 if "!selection!" == "X" (
